@@ -56,6 +56,10 @@ const Home: React.FunctionComponent = () => {
 		if (hash) setOutputFromHash(decodeHash(hash));
 	}, []);
 
+	const copy = (text: string): void => {
+		navigator.clipboard.writeText(text);
+	};
+
 	return (
 		<div className="app">
 			<header>
@@ -80,11 +84,23 @@ const Home: React.FunctionComponent = () => {
 				<div className="output">
 					<div>
 						<h2>Query</h2>
+						<button
+							onClick={(): void => copy(outputFromHash?.query || output?.query)}
+						>
+							Copy
+						</button>
 						<pre>{outputFromHash?.query || output?.query}</pre>
 					</div>
 
 					<div>
 						<h2>Variables</h2>
+						<button
+							onClick={(): void =>
+								copy(outputFromHash?.variables || output?.variables)
+							}
+						>
+							Copy
+						</button>
 						<pre>{outputFromHash?.variables || output?.variables}</pre>
 					</div>
 				</div>
