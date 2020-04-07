@@ -1,0 +1,58 @@
+html {
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+html,
+body,
+#__next {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+		Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	height: 100vh;
+}
+
+header {
+}
+
+h1 {
+	margin: 0;
+}
+
+main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.input {
+}
+
+.output {
+	flex: 1;
+	display: flex;
+	justify-content: space-between;
+}
+
+.output > div {
+	flex: 0 0 46%;
+	overflow: hidden;
+}
+
+.output pre {
+}

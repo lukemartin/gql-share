@@ -57,28 +57,38 @@ const Home: React.FunctionComponent = () => {
 	}, []);
 
 	return (
-		<div>
-			<h1>gql-share</h1>
-			<p>
-				From the Network tab of devtools, right click on a `gql` query and
-				select &quot;Copy &gt; Copy as fetch&quot;.
-			</p>
+		<div className="app">
+			<header>
+				<h1>gql-share</h1>
+			</header>
 
-			<h2>Input</h2>
-			<textarea
-				onChange={(e): void => setInput(e.target.value)}
-				value={input}
-				cols={100}
-				rows={10}
-			></textarea>
+			<main>
+				<div className="input">
+					<p>
+						From the Network tab of devtools, right click on a `gql` query and
+						select &quot;Copy &gt; Copy as fetch&quot;.
+					</p>
+					<h2>Input</h2>
+					<textarea
+						onChange={(e): void => setInput(e.target.value)}
+						value={input}
+						cols={100}
+						rows={10}
+					></textarea>
+				</div>
 
-			<hr />
+				<div className="output">
+					<div>
+						<h2>Query</h2>
+						<pre>{outputFromHash?.query || output?.query}</pre>
+					</div>
 
-			<h2>Query</h2>
-			<pre>{outputFromHash?.query || output?.query}</pre>
-
-			<h2>Variables</h2>
-			<pre>{outputFromHash?.variables || output?.variables}</pre>
+					<div>
+						<h2>Variables</h2>
+						<pre>{outputFromHash?.variables || output?.variables}</pre>
+					</div>
+				</div>
+			</main>
 		</div>
 	);
 };
