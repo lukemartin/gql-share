@@ -1,25 +1,26 @@
 import React, { useEffect, useMemo } from 'react';
-
-import { prettyJson } from '../utils';
+import { prettyJson, encodeHash, decodeHash, pushHash } from '../utils';
 
 const INPUT_PATTERN = /"body":"([\s\S]+)","method/;
 
 const Home: React.FunctionComponent = () => {
 	const [input, setInput] = React.useState('');
+	const [outputFromHash, setOutputFromHash] = React.useState<{
+		query: string;
+		variables: string;
+	}>();
 
+	// Calculate the output
 	const output: {
 		query: string;
 		variables: string;
-	} | null = useMemo(() => {
+	} = useMemo(() => {
 		if (!input) return null;
 
 		const matches = input.match(INPUT_PATTERN);
 		const match = Array.isArray(matches) && matches[1];
 
 		if (!match) {
-			// EFFECT
-			// setHashOutput
-			// push
 			return null;
 		}
 
@@ -32,9 +33,28 @@ const Home: React.FunctionComponent = () => {
 		};
 	}, [input]);
 
+	// Remove hashed output from URL when manually adding input
 	useEffect(() => {
-		console.log(output);
+		if (input) {
+			setOutputFromHash(null);
+			pushHash('#');
+		}
+	}, [input]);
+
+	// Encode the output to URL
+	useEffect(() => {
+		if (output) {
+			pushHash(
+				encodeHash({ query: output.query, variables: output.variables }),
+			);
+		}
 	}, [output]);
+
+	// Take the hash on app load
+	useEffect(() => {
+		const hash = window.location.hash;
+		if (hash) setOutputFromHash(decodeHash(hash));
+	}, []);
 
 	return (
 		<div>
@@ -55,10 +75,10 @@ const Home: React.FunctionComponent = () => {
 			<hr />
 
 			<h2>Query</h2>
-			<pre>{output?.query}</pre>
+			<pre>{outputFromHash?.query || output?.query}</pre>
 
 			<h2>Variables</h2>
-			<pre>{output?.variables}</pre>
+			<pre>{outputFromHash?.variables || output?.variables}</pre>
 		</div>
 	);
 };
