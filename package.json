@@ -1,15 +1,27 @@
 {
-  "name": "gql-share",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "9.3.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
-  }
+	"name": "gql-share",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev -p 4000",
+		"build": "next build",
+		"start": "next start"
+	},
+	"dependencies": {
+		"next": "9.3.4",
+		"react": "16.13.1",
+		"react-dom": "16.13.1"
+	},
+	"devDependencies": {
+		"@types/node": "^13.11.0",
+		"@types/react": "^16.9.32",
+		"@typescript-eslint/eslint-plugin": "^2.27.0",
+		"@typescript-eslint/parser": "^2.27.0",
+		"eslint": "^6.8.0",
+		"eslint-config-prettier": "^6.10.1",
+		"eslint-plugin-prettier": "^3.1.2",
+		"eslint-plugin-react": "^7.19.0",
+		"prettier": "^2.0.4",
+		"typescript": "^3.8.3"
+	}
 }
