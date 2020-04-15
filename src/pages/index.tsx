@@ -1,14 +1,24 @@
 import React, { useEffect, useMemo } from 'react';
+import {
+	Box,
+	BoxProps,
+	Button,
+	Flex,
+	Heading,
+	Textarea,
+	useToast,
+} from '@chakra-ui/core';
 import { prettyJson, encodeHash, decodeHash, pushHash } from '../utils';
 
 const INPUT_PATTERN = /"body":"([\s\S]+)","method/;
 
-const Home: React.FunctionComponent = () => {
+const Home: React.FC = () => {
 	const [input, setInput] = React.useState('');
 	const [outputFromHash, setOutputFromHash] = React.useState<{
 		query: string;
 		variables: string;
 	}>();
+	const toast = useToast();
 
 	// Calculate the output
 	const output: {
@@ -56,57 +66,124 @@ const Home: React.FunctionComponent = () => {
 		if (hash) setOutputFromHash(decodeHash(hash));
 	}, []);
 
-	const copy = (text: string): void => {
+	const copy = (text: string, type: string): void => {
 		navigator.clipboard.writeText(text);
+		toast({
+			title: `${type} copied to clipboard`,
+			position: 'top',
+			duration: 3000,
+		});
 	};
 
 	return (
-		<div className="app">
-			<header>
-				<h1>gql-share</h1>
-			</header>
+		<Flex direction="column" h="100%">
+			<Flex
+				as="header"
+				p={4}
+				justifyContent="space-between"
+				borderBottom="1px"
+				borderColor="gray.200"
+			>
+				<Heading as="h1">gql-share</Heading>
+				{(output || outputFromHash) && (
+					<Button
+						leftIcon="copy"
+						variantColor="cyan"
+						onClick={(): void => copy(window.location.href, 'Share URL')}
+					>
+						Share
+					</Button>
+				)}
+			</Flex>
 
-			<main>
-				<div className="input">
-					<p>
-						From the Network tab of devtools, right click on a `gql` query and
-						select &quot;Copy &gt; Copy as fetch&quot;.
-					</p>
-					<h2>Input</h2>
-					<textarea
+			<Flex flex="1">
+				<Section flex="1">
+					<SubHeading>Input</SubHeading>
+					<Textarea
+						flex="1"
+						placeholder='"Copy > Copy as fetch" from the Network tab of DevTools'
+						fontFamily="mono"
+						fontSize="sm"
+						resize="none"
+						isInvalid={input && !output}
 						onChange={(e): void => setInput(e.target.value)}
-						value={input}
-						cols={100}
-						rows={10}
-					></textarea>
-				</div>
+					></Textarea>
+				</Section>
 
-				<div className="output">
-					<div>
-						<h2>Query</h2>
-						<button
-							onClick={(): void => copy(outputFromHash?.query || output?.query)}
-						>
-							Copy
-						</button>
-						<pre>{outputFromHash?.query || output?.query}</pre>
-					</div>
-
-					<div>
-						<h2>Variables</h2>
-						<button
+				<Section flex="1">
+					<Flex justifyContent="space-between">
+						<SubHeading>Query</SubHeading>
+						<Button
+							size="sm"
+							leftIcon="copy"
+							variantColor="cyan"
 							onClick={(): void =>
-								copy(outputFromHash?.variables || output?.variables)
+								copy(outputFromHash?.query || output?.query, 'Query')
 							}
 						>
 							Copy
-						</button>
-						<pre>{outputFromHash?.variables || output?.variables}</pre>
-					</div>
-				</div>
-			</main>
-		</div>
+						</Button>
+					</Flex>
+					<ScrollablePre>
+						{outputFromHash?.query || output?.query}
+					</ScrollablePre>
+				</Section>
+
+				<Section flex="1">
+					<Flex justifyContent="space-between">
+						<SubHeading>Variables</SubHeading>
+						<Button
+							size="sm"
+							leftIcon="copy"
+							variantColor="cyan"
+							onClick={(): void =>
+								copy(
+									outputFromHash?.variables || output?.variables,
+									'Variables',
+								)
+							}
+						>
+							Copy
+						</Button>
+					</Flex>
+					<ScrollablePre>
+						{outputFromHash?.variables || output?.variables}
+					</ScrollablePre>
+				</Section>
+			</Flex>
+		</Flex>
 	);
 };
+
+const Section: React.FC<BoxProps> = ({ children, ...props }) => (
+	<Flex as="section" direction="column" p={4} {...props}>
+		{children}
+	</Flex>
+);
+
+const SubHeading: React.FC = ({ children }) => (
+	<Heading as="h2" size="lg" mb="4">
+		{children}
+	</Heading>
+);
+
+const ScrollablePre: React.FC = ({ children }) => (
+	<Box flex="1" position="relative">
+		<Box
+			as="pre"
+			p="4"
+			position="absolute"
+			top="0"
+			right="0"
+			bottom="0"
+			left="0"
+			overflow="auto"
+			fontSize="sm"
+			bg="gray.50"
+		>
+			{children}
+		</Box>
+	</Box>
+);
 
 export default Home;
