@@ -8,6 +8,7 @@ import {
 	Textarea,
 	useToast,
 } from '@chakra-ui/core';
+import copyToClipboard from 'copy-to-clipboard';
 import { prettyJson, encodeHash, decodeHash, pushHash } from '../utils';
 
 const INPUT_PATTERN = /"body":"([\s\S]+)","method/;
@@ -67,7 +68,7 @@ const Home: React.FC = () => {
 	}, []);
 
 	const copy = (text: string, type: string): void => {
-		navigator.clipboard.writeText(text);
+		copyToClipboard(text);
 		toast({
 			title: `${type} copied to clipboard`,
 			position: 'top',
