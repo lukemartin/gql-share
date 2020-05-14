@@ -5,6 +5,7 @@ import {
 	Button,
 	Flex,
 	Heading,
+	Link,
 	Textarea,
 	useToast,
 } from '@chakra-ui/core';
@@ -98,7 +99,6 @@ const Home: React.FC = () => {
 					</Button>
 				)}
 			</Flex>
-
 			<Flex flex="1">
 				<Section flex="1">
 					<SubHeading>Input</SubHeading>
@@ -153,6 +153,9 @@ const Home: React.FC = () => {
 						{outputFromHash?.variables || output?.variables}
 					</ScrollablePre>
 				</Section>
+			</Flex>
+			<Flex p={4}>
+				<Link href="https://github.com/lukemartin/gql-share">Contribute on GitHub</Link>
 			</Flex>
 		</Flex>
 	);
