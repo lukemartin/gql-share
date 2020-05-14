@@ -11,7 +11,7 @@ import {
 import copyToClipboard from 'copy-to-clipboard';
 import { prettyJson, encodeHash, decodeHash, pushHash } from '../utils';
 
-const INPUT_PATTERN = /"body":"([\s\S]+)","method/;
+const INPUT_PATTERN = /"body": "([\s\S]+)",\s+"method/;
 
 const Home: React.FC = () => {
 	const [input, setInput] = React.useState('');
@@ -29,7 +29,9 @@ const Home: React.FC = () => {
 		if (!input) return null;
 
 		const matches = input.match(INPUT_PATTERN);
+		console.log('matches: ', matches);
 		const match = Array.isArray(matches) && matches[1];
+		console.log('match: ', match);
 
 		if (!match) {
 			return null;
