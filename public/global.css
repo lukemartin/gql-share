@@ -1,0 +1,90 @@
+html,
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: hsl(197, 7%, 21%);
+	color: hsl(18, 22%, 91%);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	font-size: 0.625rem;
+}
+
+h1,
+h2 {
+	font-weight: normal;
+	margin: 10px 0;
+}
+
+h1 {
+	font-size: 2rem;
+}
+h2 {
+	font-size: 1.6rem;
+}
+
+button {
+	background-color: hsl(196, 63%, 45%);
+	color: #fff;
+	font-size: 1rem;
+	border-radius: 2px;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 5px 10px;
+}
+button:hover,
+button:focus {
+	background-color: hsl(196, 63%, 50%);
+}
+button:active {
+	background-color: hsl(196, 63%, 48%);
+}
+button:disabled {
+	cursor: not-alloweds;
+}
+button.large {
+	font-size: 1.2rem;
+}
+
+textarea {
+	width: 100%;
+	font-family: monospace;
+	resize: none;
+	outline: none;
+}
+textarea:hover,
+textarea:active,
+textarea:focus {
+	border: 1px solid hsl(196, 84%, 56%);
+}
+textarea.error {
+	border: 1px solid hsl(357, 46%, 52%);
+}
+
+pre {
+	overflow: auto;
+}
+
+textarea,
+pre {
+	background-color: hsl(197, 7%, 15%);
+	border: 1px solid hsl(197, 7%, 35%);
+	border-radius: 4px;
+	color: hsl(18, 22%, 85%);
+	font-size: 1.2rem;
+	height: 100%;
+	padding: 10px;
+	margin: 0;
+}
