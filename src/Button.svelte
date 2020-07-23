@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let buttonProps = {};
+	export let large = false;
+	export let success = false;
 </script>
 
-<button {...buttonProps} on:click>
+<button class:large class:success on:click>
 	<slot />
 </button>

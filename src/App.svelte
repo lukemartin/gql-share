@@ -1,19 +1,13 @@
 <script lang="ts">
 	import copy from 'copy-to-clipboard';
 	import Button from './Button.svelte';
-	import {
-		// SAMPLE_INPUT,
-		parseQuery,
-		encodeHash,
-		decodeHash,
-		pushHash,
-	} from './utils';
+	import { parseQuery, encodeHash, decodeHash, pushHash } from './utils';
 
 	let input = '';
 	let parsedQuery: ReturnType<typeof parseQuery>;
 	// let operationName = '';
 	let query = '';
-	let variables: { [index: string]: any };
+	let variables: { [index: string]: any } | undefined;
 	let variablesOutput = '';
 	let hashQuery: ReturnType<typeof decodeHash>['query'] = '';
 	let hashVariables: ReturnType<typeof decodeHash>['variables'] = '';
@@ -31,6 +25,17 @@
 	$: query && variables
 		? pushHash(encodeHash({ query, variables: variablesOutput }))
 		: pushHash('');
+
+	let copyStatus = {
+		url: false,
+		query: false,
+		variables: false,
+	};
+
+	const flash = (prop: keyof typeof copyStatus) => {
+		copyStatus[prop] = true;
+		setTimeout(() => (copyStatus[prop] = false), 1000);
+	};
 </script>
 
 <style>
@@ -75,9 +80,13 @@
 	<header>
 		<h1>GraphQL Query Share</h1>
 		<Button
-			buttonProps={{ class: 'large' }}
-			on:click={() => copy(window.location.href)}>
-			Share
+			large
+			success={copyStatus.url}
+			on:click={() => {
+				copy(window.location.href);
+				flash('url');
+			}}>
+			{copyStatus.url ? 'Copied' : 'Share'}
 		</Button>
 	</header>
 
@@ -99,7 +108,14 @@
 		<section>
 			<div class="section-header">
 				<h2>Query</h2>
-				<Button on:click={() => copy(query || hashQuery)}>Copy</Button>
+				<Button
+					success={copyStatus.query}
+					on:click={() => {
+						copy(query || hashQuery);
+						flash('query');
+					}}>
+					{copyStatus.query ? 'Copied' : 'Copy'}
+				</Button>
 			</div>
 			<div>
 				<pre>{query || hashQuery}</pre>
@@ -108,8 +124,13 @@
 		<section>
 			<div class="section-header">
 				<h2>Variables</h2>
-				<Button on:click={() => copy(variablesOutput || hashVariables)}>
-					Copy
+				<Button
+					success={copyStatus.variables}
+					on:click={() => {
+						copy(variablesOutput || hashVariables);
+						flash('variables');
+					}}>
+					{copyStatus.variables ? 'Copied' : 'Copy'}
 				</Button>
 			</div>
 			<div>

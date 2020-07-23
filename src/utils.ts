@@ -23,7 +23,7 @@ const parseQuery = (
 ): {
 	error: boolean;
 	query: string;
-	variables: { [index: string]: any };
+	variables: { [index: string]: any } | undefined;
 	operationName: string;
 } => {
 	const match = input.match(/\-\-data\-binary \$?'(\{[\s\S]+\})'/);
@@ -32,7 +32,7 @@ const parseQuery = (
 		return {
 			error: true,
 			query: '',
-			variables: {},
+			variables: undefined,
 			operationName: '',
 		};
 
