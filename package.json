@@ -1,5 +1,6 @@
 {
   "name": "gql-query-share",
+  "description": "Parse & share your GraphQL queries",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
