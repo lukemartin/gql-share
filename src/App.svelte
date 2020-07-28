@@ -1,7 +1,7 @@
 <script lang="ts">
 	import copy from 'copy-to-clipboard';
-	import Button from './Button.svelte';
 	import { parseQuery, encodeHash, decodeHash, pushHash } from './utils';
+	import Button from './Button.svelte';
 
 	let input = '';
 	let parsedQuery: ReturnType<typeof parseQuery>;
@@ -100,9 +100,9 @@
 			<div>
 				<textarea
 					id="input-textarea"
+					bind:value={input}
 					class:error={input && !query}
-					placeholder="'Copy > Copy as cuRL' from DevTools"
-					bind:value={input} />
+					placeholder="'Copy > Copy as cURL' from the Network tab of DevTools" />
 			</div>
 		</section>
 		<section>
