@@ -39,6 +39,15 @@ h2 {
 	font-size: 1.6rem;
 }
 
+a,
+a:link,
+a:visited,
+a:active {
+	color: hsl(16, 100%, 98%);
+	text-decoration: none;
+	font-size: 0.7rem;
+}
+
 button {
 	background-color: hsl(196, 63%, 45%);
 	color: #fff;

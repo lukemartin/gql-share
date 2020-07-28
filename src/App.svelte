@@ -54,20 +54,26 @@
 		align-items: center;
 	}
 
+	footer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 10px;
+	}
+
 	main {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
 		grid-template-rows: minmax(0, 1fr);
-		gap: 10px;
-		padding: 10px;
+		gap: 0 20px;
+		padding: 0 20px;
 	}
 
 	section {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: min-content minmax(0, 1fr);
-		gap: 1px 1px;
-		padding: 10px;
+		gap: 10px;
 	}
 	.section-header {
 		display: flex;
@@ -138,4 +144,8 @@
 			</div>
 		</section>
 	</main>
+
+	<footer>
+		<a href="https://github.com/lukemartin/gql-share">View on GitHub</a>
+	</footer>
 </div>
