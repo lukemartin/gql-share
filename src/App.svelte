@@ -92,7 +92,7 @@
 				copy(window.location.href);
 				flash('url');
 			}}>
-			{copyStatus.url ? 'Copied' : 'Share'}
+			{copyStatus.url ? 'Copied' : 'Copy Permalink'}
 		</Button>
 	</header>
 
