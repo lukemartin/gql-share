@@ -215,10 +215,10 @@ chalk@^4.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chokidar@^3.3.0:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.1.tgz#e905bdecf10eaa0a0b1db0c664481cc4cbc22ba1"
-  integrity sha512-TQTJyr2stihpC4Sya9hs2Xh+O2wf+igjL36Y75xx2WdHuiICcn/XJza46Jwt0eT5hVpQOzo3FpY3cj3RVYLX0g==
+chokidar@^3.3.0, chokidar@^3.4.1:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.2.tgz#38dc8e658dec3809741eb3ef7bb0a47fe424232d"
+  integrity sha512-IZHaDeBeI+sZJRX7lGcXsdzgvZqKv6sECqsbErJA4mHWfpRrD8B97kSFN4cQz6nGBGiuFia1MKR4d6c1o8Cv7A==
   dependencies:
     anymatch "~3.1.1"
     braces "~3.0.2"
@@ -790,12 +790,13 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-svelte-check@^0.1.0:
-  version "0.1.55"
-  resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-0.1.55.tgz#7e5261123302db4d6ed54a4ab2ed3f4d3cc9fd82"
-  integrity sha512-jdTmpMe1WLQyciNLZ3/8ApwPmpbKbF0RLu480GDapLp+eAjtVMY1j1afWSUgkc6aeTEvoMA29MnICz+rI6mrYA==
+svelte-check@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-1.0.14.tgz#84c87f84bc7701e5209f40c3507c02bf6f364c92"
+  integrity sha512-hZtkFFFlGvu7+OeHP/RNSSRwyJhuRa1iM61KwUiSGpuCVGJA4o1phsxpOH1Xvrpt8tRrGJWK16FWbG53Sr8D0g==
   dependencies:
     chalk "^4.0.0"
+    chokidar "^3.4.1"
     glob "^7.1.6"
     minimist "^1.2.5"
     svelte-language-server "*"
