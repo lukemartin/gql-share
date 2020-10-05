@@ -76,10 +76,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@tsconfig/svelte@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@tsconfig/svelte/-/svelte-1.0.2.tgz#0c4677de1804e395c2e071533a47fda5cfea9914"
-  integrity sha512-GkTFn433Sw5mnrrA0iB0SXubgFu51cwU8qDCeTmCwrhMEaz0pERPgODfXf50jpiUZstuNdqGUlygtaYGhpWz2Q==
+"@tsconfig/svelte@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@tsconfig/svelte/-/svelte-1.0.10.tgz#30ec7feeee0bdf38b12a50f0686f8a2e7b6b9dc0"
+  integrity sha512-EBrpH2iXXfaf/9z81koiDYkp2mlwW2XzFcAqn6qh7VKyP8zBvHHAQzNhY+W9vH5arAjmGAm5g8ElWq6YmXm3ig==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
