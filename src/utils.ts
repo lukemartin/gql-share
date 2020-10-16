@@ -55,7 +55,7 @@ const encodeHash = ({
 }) =>
 	`#vars=${compressToEncodedURIComponent(
 		variables,
-	)}query=${compressToEncodedURIComponent(query)}}`;
+	)}query=${compressToEncodedURIComponent(query)}`;
 
 const decodeHash = (hash: string): { query: string; variables: string } => {
 	const hashQuery = hash.match(/query=([\S]+)$/)?.[1];
