@@ -858,10 +858,10 @@ svelte-language-server@*:
     vscode-languageserver-types "3.15.1"
     vscode-uri "2.1.1"
 
-svelte-preprocess@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.4.2.tgz#6ffe8d3460df4b7d4ad66890aeca6ed3fcd7fe68"
-  integrity sha512-zoknJzE8Jwa43G1pNjROthLOPiSA9tTExYT/7J9QYYIRI1ux2346bE8LpeLoyq8jL5aTyIY/TLr6/hCKCdyBVw==
+svelte-preprocess@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.6.1.tgz#a7de4d91b32d5608b6637da960ee81e6089ae276"
+  integrity sha512-s7KdhR2pOsffyOzZIMEb315f6pfgeDnOWN47m6YKFeSEx3NMf/79Znc3vuG/Ai79SL/vsi86WDrjFPLGRfDesg==
   dependencies:
     "@types/pug" "^2.0.4"
     "@types/sass" "^1.16.0"
