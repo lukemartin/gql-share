@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="typescript">
 	export let large: boolean | undefined = false;
 	export let success: boolean | undefined = false;
 </script>

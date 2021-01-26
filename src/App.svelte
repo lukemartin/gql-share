@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="typescript">
 	import copy from 'copy-to-clipboard';
 	import { parseQuery, encodeHash, decodeHash, pushHash } from './utils';
 	import Button from './Button.svelte';
@@ -37,6 +37,78 @@
 		setTimeout(() => (copyStatus[prop] = false), 1000);
 	};
 </script>
+
+<div class="container">
+	<header>
+		<h1>GraphQL Query Share</h1>
+		<Button
+			large
+			success={copyStatus.url}
+			on:click={() => {
+				copy(window.location.href);
+				flash('url');
+			}}
+		>
+			{copyStatus.url ? 'Copied' : 'Copy Permalink'}
+		</Button>
+	</header>
+
+	<main>
+		<section>
+			<div>
+				<label for="input-textarea">
+					<h2>Input</h2>
+				</label>
+			</div>
+			<div>
+				<textarea
+					id="input-textarea"
+					bind:value={input}
+					class:error={input && !query}
+					placeholder="'Copy > Copy as cURL' from the Network tab of DevTools"
+				/>
+			</div>
+		</section>
+		<section>
+			<div class="section-header">
+				<h2>Query</h2>
+				<Button
+					success={copyStatus.query}
+					on:click={() => {
+						copy(query || hashQuery);
+						flash('query');
+					}}
+				>
+					{copyStatus.query ? 'Copied' : 'Copy'}
+				</Button>
+			</div>
+			<div>
+				<pre>{query || hashQuery}</pre>
+			</div>
+		</section>
+		<section>
+			<div class="section-header">
+				<h2>Variables</h2>
+				<Button
+					success={copyStatus.variables}
+					on:click={() => {
+						copy(variablesOutput || hashVariables);
+						flash('variables');
+					}}
+				>
+					{copyStatus.variables ? 'Copied' : 'Copy'}
+				</Button>
+			</div>
+			<div>
+				<pre>{variablesOutput || hashVariables}</pre>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<a href="https://github.com/lukemartin/gql-share">View on GitHub</a>
+	</footer>
+</div>
 
 <style>
 	.container {
@@ -81,71 +153,3 @@
 		align-items: center;
 	}
 </style>
-
-<div class="container">
-	<header>
-		<h1>GraphQL Query Share</h1>
-		<Button
-			large
-			success={copyStatus.url}
-			on:click={() => {
-				copy(window.location.href);
-				flash('url');
-			}}>
-			{copyStatus.url ? 'Copied' : 'Copy Permalink'}
-		</Button>
-	</header>
-
-	<main>
-		<section>
-			<div>
-				<label for="input-textarea">
-					<h2>Input</h2>
-				</label>
-			</div>
-			<div>
-				<textarea
-					id="input-textarea"
-					bind:value={input}
-					class:error={input && !query}
-					placeholder="'Copy > Copy as cURL' from the Network tab of DevTools" />
-			</div>
-		</section>
-		<section>
-			<div class="section-header">
-				<h2>Query</h2>
-				<Button
-					success={copyStatus.query}
-					on:click={() => {
-						copy(query || hashQuery);
-						flash('query');
-					}}>
-					{copyStatus.query ? 'Copied' : 'Copy'}
-				</Button>
-			</div>
-			<div>
-				<pre>{query || hashQuery}</pre>
-			</div>
-		</section>
-		<section>
-			<div class="section-header">
-				<h2>Variables</h2>
-				<Button
-					success={copyStatus.variables}
-					on:click={() => {
-						copy(variablesOutput || hashVariables);
-						flash('variables');
-					}}>
-					{copyStatus.variables ? 'Copied' : 'Copy'}
-				</Button>
-			</div>
-			<div>
-				<pre>{variablesOutput || hashVariables}</pre>
-			</div>
-		</section>
-	</main>
-
-	<footer>
-		<a href="https://github.com/lukemartin/gql-share">View on GitHub</a>
-	</footer>
-</div>
