@@ -26,7 +26,7 @@ const parseQuery = (
 	variables: { [index: string]: any } | undefined;
 	operationName: string;
 } => {
-	const match = input.match(/\-\-data\-binary \$?'(\{[\s\S]+\})'/);
+	const match = input.match(/\-\-data\-raw \$?'(\{[\s\S]+\})'/);
 
 	if (!match || !match[1])
 		return {
