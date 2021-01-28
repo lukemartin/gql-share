@@ -26,9 +26,9 @@ const parseQuery = (
 	variables: { [index: string]: any } | undefined;
 	operationName: string;
 } => {
-	const match = input.match(/\-\-data\-raw \$?'(\{[\s\S]+\})'/);
+	const match = input.match(/\-\-data\-(binary|raw) \$?'(\{[\s\S]+\})'/);
 
-	if (!match || !match[1])
+	if (!match || !match[2])
 		return {
 			error: true,
 			query: '',
@@ -36,7 +36,7 @@ const parseQuery = (
 			operationName: '',
 		};
 
-	const jsonQuery = match[1];
+	const jsonQuery = match[2];
 
 	const parsed = JSON.parse(jsonQuery);
 
