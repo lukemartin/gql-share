@@ -2123,10 +2123,10 @@ svelte-hmr@^0.12.1:
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.12.5.tgz#afbdd44daaf5eca901727af2f80571855d9e9985"
   integrity sha512-AEPtbwF6h+B5jI/aQhvk61wXrW6bxOGQecI/GmRd+LCvg+s4P0VQ3Xseg18foAM6ZemBZrGCRCopeZZS4+X7cg==
 
-svelte-preprocess@^4.0.8, svelte-preprocess@^4.6.0:
-  version "4.6.3"
-  resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.6.3.tgz#0ae44fc61ac95901ac7152c70591d33b2375293f"
-  integrity sha512-VQRViCNBZi3Ni0W7aIyWJuhK+g7MSjd+s0sA9Q1rve9isz9/K0ZS3lDKnOtncjioGa2adZ10NnqtOQAGhKiZ5g==
+svelte-preprocess@^4.6.0, svelte-preprocess@^4.6.5:
+  version "4.6.5"
+  resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.6.5.tgz#65cd8e26241ce7e53a8c306472cefcb494a550f1"
+  integrity sha512-bVNq1seKfJlLKttWjhT55HBMz5WM8Ev5iidbu8qPD0B8+pHrsyg2QS2pZLQ6epU3GIKFfZzAlBQX+978GRHgkQ==
   dependencies:
     "@types/pug" "^2.0.4"
     "@types/sass" "^1.16.0"
