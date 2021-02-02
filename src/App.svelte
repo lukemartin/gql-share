@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import copy from 'copy-to-clipboard';
 	import { parseQuery, encodeHash, decodeHash, pushHash } from './utils';
 	import Button from './Button.svelte';
