@@ -1,9 +1,26 @@
 {
 	"extends": "@tsconfig/svelte/tsconfig.json",
-	"include": ["src/**/*"],
-	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
+	"include": ["src", "types"],
+	"exclude": ["node_modules"],
 	"compilerOptions": {
+		"module": "esnext",
+		"target": "esnext",
+		"typeRoots": ["./node_modules/@types"],
+		"moduleResolution": "node",
+		"jsx": "preserve",
+		"baseUrl": "./",
+		/* paths - If you configure Snowpack import aliases, add them here. */
+		"paths": {},
+		/* noEmit - Snowpack builds (emits) files, not tsc. */
+		"noEmit": true,
+		/* Additional Options */
+		"strict": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"useDefineForClassFields": true,
 		"allowSyntheticDefaultImports": true,
-		"strict": true
+		"importsNotUsedAsValues": "error",
+		"types": ["svelte", "@types/snowpack-env"]
 	}
 }
