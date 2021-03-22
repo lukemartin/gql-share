@@ -99,10 +99,10 @@
     dotenv "^8.2.0"
     dotenv-expand "^5.1.0"
 
-"@snowpack/plugin-svelte@^3.5.0":
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/@snowpack/plugin-svelte/-/plugin-svelte-3.5.2.tgz#144d6ff9716ce6878ffeba67811e98b2c3744e7d"
-  integrity sha512-i7OhkIRNt1uJ/y3qpowlU7icjtSgFPIl/GjMmBxhtwoIqHAnowFLh1Ur5G6S36GCFo65ymClnYfEIM/2x1+wPQ==
+"@snowpack/plugin-svelte@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@snowpack/plugin-svelte/-/plugin-svelte-3.6.0.tgz#16a094404a4fb0fee486ab170017352c1c6abed5"
+  integrity sha512-YHzbkFOX8ahisc/SUk13Wd004KDPZRhIgalfCXCJIyRvgstPuOZ3ejcirYcPlyf1+G4mW69HLN7/y98JPTvAJA==
   dependencies:
     rollup-plugin-svelte "^7.0.0"
     svelte-hmr "^0.12.1"
