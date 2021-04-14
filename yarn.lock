@@ -379,6 +379,14 @@
   dependencies:
     "@chakra-ui/utils" "1.5.2"
 
+"@chakra-ui/icons@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-1.0.10.tgz#19fac3b73f574162a8e64fa086c3d0adff7a53fd"
+  integrity sha512-D93O7uQ07VjINd51gIRpd7kcMme/jTRtsefbuawYxmIbe6uDaNAIaYfDHM/lJPomdk/iaSXC68ESK6vyyfif+A==
+  dependencies:
+    "@chakra-ui/icon" "1.1.6"
+    "@types/react" "^17.0.0"
+
 "@chakra-ui/image@1.0.12":
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/@chakra-ui/image/-/image-1.0.12.tgz#51495d36a9dccd4e90fe65ff5fcec3e11cc2ecd2"
