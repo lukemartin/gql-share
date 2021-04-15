@@ -5,6 +5,7 @@ import {
 	Flex,
 	Heading,
 	IconButton,
+	Link,
 	useColorMode,
 	useToast,
 } from '@chakra-ui/react';
@@ -24,9 +25,16 @@ function Header() {
 			</Heading>
 
 			<Box>
+				<Link
+					isExternal
+					href="https://github.com/lukemartin/gql-share"
+					sx={{ fontSize: 11 }}
+				>
+					View on GitHub
+				</Link>
 				<IconButton
 					variant="ghost"
-					marginRight="4"
+					marginX="4"
 					icon={<MoonIcon />}
 					aria-label="Toggle color mode"
 					onClick={toggleColorMode}
