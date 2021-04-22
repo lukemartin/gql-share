@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.10",
-    "@chakra-ui/react": "^1.5.1",
+    "@chakra-ui/react": "^1.5.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "copy-to-clipboard": "^3.3.1",
