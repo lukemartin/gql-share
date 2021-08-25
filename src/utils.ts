@@ -14,6 +14,7 @@ const parseQuery = (
 	hash: string;
 } => {
 	const match = input.match(/\-\-data\-(binary|raw) \$?'(\{[\s\S]+\})'/);
+	console.log('match: ', match);
 
 	if (!match || !match[2])
 		return {
@@ -26,7 +27,9 @@ const parseQuery = (
 
 	const jsonQuery = match[2];
 
-	const parsed = JSON.parse(jsonQuery);
+	const cleanedQuery = jsonQuery.replace(/\\\\"/g, '\\"');
+
+	const parsed = JSON.parse(cleanedQuery);
 	const variables = JSON.stringify(parsed.variables, null, 2);
 	const query = parsed.query.replace(/\\n/g, '\n');
 	const hash = encodeHash({ query, variables });
