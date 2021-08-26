@@ -34,8 +34,4 @@ jobs:
         run: yarn
 
       - name: Run local server
-        run: yarn dev & wait-on http://localhost:4546
-
-      # Runs a set of commands using the runners shell
-      - name: Run Cypress
-        run: yarn cypress:run
+        run: yarn build && yarn serve && wait-on http://localhost:5000 && yarn cypress:run
