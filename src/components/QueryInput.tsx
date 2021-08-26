@@ -9,6 +9,7 @@ function QueryInput() {
 
 	return (
 		<Textarea
+			data-test="query-input"
 			value={input}
 			isInvalid={isInvalid}
 			variant="filled"

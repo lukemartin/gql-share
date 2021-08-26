@@ -23,3 +23,24 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+/**
+ * @param text: text to be pasted in
+ */
+// https://github.com/cypress-io/cypress/issues/1123#issuecomment-672640129
+Cypress.Commands.add(
+	'paste',
+	{
+		prevSubject: true,
+		element: true,
+	},
+	($element, text) => {
+		cy.get($element)
+			.click()
+			.then(() => {
+				$element.text(text);
+				$element.val(text);
+				cy.get($element).type(' {backspace}');
+			});
+	},
+);

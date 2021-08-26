@@ -28,9 +28,14 @@ function GQLQueryShare() {
 						headerText="Query"
 						value={outputQuery}
 						sx={{ marginRight: 8 }}
+						dataTest="output-query"
 					/>
 
-					<Output headerText="Variables" value={outputVars} />
+					<Output
+						headerText="Variables"
+						value={outputVars}
+						dataTest="output-variables"
+					/>
 				</Flex>
 			</Flex>
 		</Flex>

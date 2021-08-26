@@ -14,9 +14,10 @@ interface IProps {
 	headerText: string;
 	value: string;
 	sx?: CSSObject;
+	dataTest: string;
 }
 
-function Output({ headerText, value, sx }: IProps) {
+function Output({ headerText, value, sx, dataTest }: IProps) {
 	const toast = useToast();
 
 	return (
@@ -48,6 +49,7 @@ function Output({ headerText, value, sx }: IProps) {
 			</Flex>
 
 			<Textarea
+				data-test={dataTest}
 				value={value}
 				readOnly
 				resize="none"
