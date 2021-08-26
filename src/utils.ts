@@ -14,7 +14,6 @@ const parseQuery = (
 	hash: string;
 } => {
 	const match = input.match(/\-\-data\-(binary|raw) \$?'(\{[\s\S]+\})'/);
-	console.log('match: ', match);
 
 	if (!match || !match[2])
 		return {
