@@ -1,64 +1,61 @@
-import { CopyIcon } from '@chakra-ui/icons';
-import {
-	Button,
-	CSSObject,
-	Flex,
-	Heading,
-	Textarea,
-	useToast,
-} from '@chakra-ui/react';
-import copy from 'copy-to-clipboard';
+import type * as Stitches from '@stitches/react';
 import React from 'react';
+import { Textarea } from '.';
+import { useFlash } from '../hooks/useFlash';
+import { Button, config, Flex, Text } from '../system';
+import copy from 'copy-to-clipboard';
+import { CopyIcon } from '@modulz/radix-icons';
 
 interface IProps {
 	headerText: string;
 	value: string;
-	sx?: CSSObject;
+	css?: Stitches.CSS<typeof config>;
 	dataTest: string;
 }
 
-function Output({ headerText, value, sx, dataTest }: IProps) {
-	const toast = useToast();
+export const Output = ({ headerText, value, css, dataTest }: IProps) => {
+	const [flash, copyButtonProps] = useFlash<{
+		text: string;
+		appearance?: Stitches.VariantProps<typeof Button>['appearance'];
+	}>({
+		defaultProps: {
+			text: 'Copy',
+			appearance: undefined,
+		},
+	});
 
 	return (
-		<Flex flexGrow={1} flexDirection="column" sx={sx}>
-			<Flex justifyContent="space-between" alignItems="center" py="2">
-				<Heading as="h2" size="md" marginBottom={2}>
+		<Flex direction="column" css={{ flexGrow: 1, ...css }}>
+			<Flex
+				css={{
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					py: '$2',
+				}}
+			>
+				<Text as="h2" size="large">
 					{headerText}
-				</Heading>
+				</Text>
 				<Button
-					colorScheme="blue"
-					size="sm"
-					variant="outline"
-					leftIcon={<CopyIcon />}
+					small
+					appearance={copyButtonProps.appearance}
 					onClick={() => {
 						copy(value);
-
-						if (!toast.isActive(headerText)) {
-							toast({
-								title: `${headerText} copied to clipboard`,
-								status: 'success',
-								position: 'top',
-								id: headerText,
-							});
-						}
+						flash({ text: 'Copied', appearance: 'success' });
 					}}
 				>
-					Copy
-				</Button>{' '}
+					<CopyIcon /> {copyButtonProps.text}
+				</Button>
 			</Flex>
 
 			<Textarea
 				data-test={dataTest}
 				value={value}
 				readOnly
-				resize="none"
-				size="sm"
-				height="100%"
-				onFocus={(e) => e.target.select()}
+				css={{
+					height: '100%',
+				}}
 			></Textarea>
 		</Flex>
 	);
-}
-
-export { Output };
+};

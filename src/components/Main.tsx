@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '../system';
 import { QueryInput } from '../components';
-import { useQueryContext } from '../../QueryContext';
+import { useQueryContext } from '../QueryContext';
 import { Output } from './Output';
 
 export const Main = () => {
