@@ -1,66 +1,68 @@
-import React from 'react';
+import type * as Stitches from '@stitches/react';
 import {
-	Box,
-	Button,
-	Flex,
-	Heading,
-	IconButton,
-	Link,
-	useColorMode,
-	useToast,
-} from '@chakra-ui/react';
-import { LinkIcon, MoonIcon } from '@chakra-ui/icons';
+	GitHubLogoIcon,
+	MoonIcon,
+	Share2Icon,
+	SunIcon,
+} from '@modulz/radix-icons';
+import React from 'react';
+import { AccessibleIcon, Button, Flex, Text } from '../system';
+import { useFlash } from '../hooks/useFlash';
 import copy from 'copy-to-clipboard';
 
-const TOAST_ID = 1;
-
-function Header() {
-	const { toggleColorMode } = useColorMode();
-	const toast = useToast();
+export const Header = () => {
+	const [flash, shareButtonProps] = useFlash<{
+		text: string;
+		appearance?: Stitches.VariantProps<typeof Button>['appearance'];
+	}>({
+		defaultProps: {
+			text: 'Share Query',
+			appearance: undefined,
+		},
+	});
 
 	return (
-		<Flex as="header" justifyContent="space-between" alignItems="center">
-			<Heading as="h1">
+		<Flex
+			as="header"
+			direction="row"
+			css={{
+				m: '$3',
+				justifyContent: 'space-between',
+			}}
+		>
+			<Text as="h1" size="large">
 				<a href="/">GraphQL Query Share</a>
-			</Heading>
+			</Text>
 
-			<Box>
-				<Link
-					isExternal
+			<Flex css={{ alignItems: 'center' }}>
+				<a
 					href="https://github.com/lukemartin/gql-share"
-					sx={{ fontSize: 11 }}
+					target="_blank"
+					rel="noopener noreferrer"
+					title="View project on GitHub"
 				>
-					View on GitHub
-				</Link>
-				<IconButton
-					variant="ghost"
-					marginX="4"
-					icon={<MoonIcon />}
-					aria-label="Toggle color mode"
-					onClick={toggleColorMode}
-				></IconButton>
+					<AccessibleIcon label="View project on GitHub">
+						<GitHubLogoIcon />
+					</AccessibleIcon>
+				</a>
+
+				{/*<button onClick={() => {}}>
+					<AccessibleIcon label="Toggle dark mode">
+						<MoonIcon />
+					</AccessibleIcon>
+				</button>*/}
 
 				<Button
-					colorScheme="blue"
-					leftIcon={<LinkIcon />}
+					css={{ ml: '$3' }}
+					appearance={shareButtonProps.appearance}
 					onClick={() => {
 						copy(window.location.href);
-
-						if (!toast.isActive(TOAST_ID)) {
-							toast({
-								title: 'Query URL copied to clipboard',
-								status: 'success',
-								position: 'top',
-								id: TOAST_ID,
-							});
-						}
+						flash({ text: 'Copied', appearance: 'success' });
 					}}
 				>
-					Share Query
+					<Share2Icon /> {shareButtonProps.text}
 				</Button>
-			</Box>
+			</Flex>
 		</Flex>
 	);
-}
-
-export { Header };
+};

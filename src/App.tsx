@@ -1,13 +1,20 @@
 import React from 'react';
-import { GQLQueryShare } from './components/GQLQueryShare';
 import { QueryContextProvider } from './QueryContext';
+import { Header } from './components';
+import { Footer } from './components';
+import { Main } from './components';
+import { Flex, globalStyles } from './system';
 
-function App() {
+export const App = () => {
+	globalStyles();
+
 	return (
 		<QueryContextProvider>
-			<GQLQueryShare />
+			<Flex direction="column" css={{ width: '100%' }}>
+				<Header />
+				<Main />
+				<Footer />
+			</Flex>
 		</QueryContextProvider>
 	);
-}
-
-export { App };
+};
