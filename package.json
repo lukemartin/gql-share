@@ -16,7 +16,7 @@
   "dependencies": {
     "@modulz/radix-icons": "^4.0.0",
     "@radix-ui/colors": "^0.1.7",
-    "@radix-ui/react-accessible-icon": "^0.1.0",
+    "@radix-ui/react-accessible-icon": "^1.0.0",
     "@radix-ui/react-visually-hidden": "^0.1.0",
     "@stitches/react": "^1.0.0",
     "copy-to-clipboard": "^3.3.1",
