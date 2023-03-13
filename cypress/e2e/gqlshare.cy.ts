@@ -25,6 +25,8 @@ describe('gqlshare.dev', () => {
 
 	describe('when pasting a valid input', () => {
 		beforeEach(() => {
+			cy.visit('/');
+
 			cy.get('[data-test="query-input"]')
 				// @ts-ignore
 				.paste(SAMPLE_INPUT);
