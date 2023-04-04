@@ -1,10 +1,14 @@
 import React from 'react';
 import { Textarea } from './';
-import { useQueryContext } from '../QueryContext';
 import { Text, VisuallyHidden } from '../system';
+import { useQueryStore } from '../queryStore';
 
 function QueryInput() {
-	const { input, setInput, isQueryValid } = useQueryContext();
+	const [input, setInput, isQueryValid] = useQueryStore((state) => [
+		state.input,
+		state.setInput,
+		state.isQueryValid,
+	]);
 
 	const isInvalid = !!input.length && !isQueryValid;
 
