@@ -1,11 +1,14 @@
 import React from 'react';
 import { Flex } from '../system';
 import { QueryInput } from '../components';
-import { useQueryContext } from '../QueryContext';
 import { Output } from './Output';
+import { useQueryStore } from '../queryStore';
 
 export const Main = () => {
-	const { outputQuery, outputVars } = useQueryContext();
+	const [outputQuery, outputVars] = useQueryStore((state) => [
+		state.outputQuery,
+		state.outputVars,
+	]);
 
 	return (
 		<Flex as="main" direction="column" css={{ mx: '$3', flexGrow: 1 }}>

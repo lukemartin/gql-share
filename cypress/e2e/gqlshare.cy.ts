@@ -46,4 +46,26 @@ describe('gqlshare.dev', () => {
 			);
 		});
 	});
+
+	describe('when loading with a valid hash', () => {
+		beforeEach(() => {
+			cy.visit(
+				'/#vars=N4KABGBEB2CGC2BTSAuKcmQDTigewHdpEAnVfI0yEAXyAquery=I4VwpgTgngBA4mALgJTABwPYGcCWiPQAUAJAHYCGAtmAFwwDKiEOpA5gIQA0MxGA7qUh1GzNuwCUMAN4AoGDAjpseAlEIVqdMlTDd+giFv2RJs+fJwATOTAC+M+0A',
+			);
+		});
+
+		it('should output a valid query', () => {
+			cy.get('[data-test="output-query"]').should(
+				'have.value',
+				SAMPLE_OUTPUT_QUERY,
+			);
+		});
+
+		it('should output valid variables', () => {
+			cy.get('[data-test="output-variables"]').should(
+				'have.value',
+				SAMPLE_OUTPUT_VARIABLES,
+			);
+		});
+	});
 });
