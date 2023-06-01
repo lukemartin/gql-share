@@ -17,6 +17,6 @@
 			<img src={githubIcon} alt="Github icon" width="24" class="text-white" />
 		</a>
 
-		<CopyButton data={window.location.href}>Share Query</CopyButton>
+		<CopyButton data={window.location}>Share Query</CopyButton>
 	</div>
 </header>
