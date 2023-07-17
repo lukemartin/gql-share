@@ -17,7 +17,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.35.1",
+		"@playwright/test": "^1.36.1",
 		"@sveltejs/vite-plugin-svelte": "^2.4.2",
 		"@tsconfig/svelte": "^4.0.1",
 		"autoprefixer": "^10.4.14",
