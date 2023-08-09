@@ -11,13 +11,9 @@ If your GraphQL query or mutation isn’t working as expected, it’s likely you
 
 ## How?
 
-Copy the request in cURL format from DevTools:
+Copy the request in cURL format from DevTools & paste it into gqlshare:
 
-![](./copy-curl.gif)
-
-Paste into gqlshare:
-
-![](./paste-gqlshare.gif)
+https://github.com/lukemartin/gql-share/assets/561506/9fee7356-c0ad-4f65-8173-c72997bd7bfe
 
 ## Privacy
 
