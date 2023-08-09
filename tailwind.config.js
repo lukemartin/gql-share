@@ -2,7 +2,11 @@
 export default {
 	content: ['./index.html', './src/**/*.{svelte,js,jsx,ts,tsx}'],
 	theme: {
-		extend: {}
+		extend: {
+			screens: {
+				xs: '403px'
+			}
+		}
 	},
 	plugins: []
 };

@@ -3,10 +3,10 @@
 	import CopyButton from './CopyButton.svelte';
 </script>
 
-<header class="p-4 pb-0 flex justify-between">
-	<h1 class="text-xl"><a href="/">GraphQL Query Share</a></h1>
+<header class="p-4 pb-0 flex flex-wrap gap-4 justify-end items-center">
+	<h1 class="w-full xs:w-auto text-xl text-center"><a href="/">GraphQL Query Share</a></h1>
 
-	<div class="flex gap-4 items-center">
+	<div class="flex-grow flex gap-4 items-center justify-end">
 		<a
 			class="text-white"
 			href="https://github.com/lukemartin/gql-share"
