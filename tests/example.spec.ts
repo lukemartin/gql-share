@@ -18,6 +18,79 @@ const SAMPLE_OUTPUT_QUERY = `query GetRepository($name: String!, $owner: String!
 
 const SAMPLE_OUTPUT_VARIABLES = `{\n  "name": "name",\n  "owner": "owner"\n}`;
 
+const JSON_TEST_EXPECTED_VARIABLES = `{
+	"orgId": 15,
+	"searchPattern": "232f1350ff01 "
+  }`;
+
+const JSON_TEST_EXPECTED_QUERY = `query GetSuggestions($orgId: ID!, $searchPattern: String!, $contentTypeIds: [ID!]) {
+	organization(id: $orgId) {
+	  id
+	  fieldUniverse {
+		suggestCompletionV2(
+		  searchPattern: $searchPattern
+		  contentTypeIds: $contentTypeIds
+		  limit: 10
+		) {
+		  ...AutoCompleteFragment
+		  __typename
+		}
+		__typename
+	  }
+	  __typename
+	}
+  }
+  
+  fragment AutoCompleteFragment on FieldValueCompletionSuggestion {
+	suggestion
+	field {
+	  key
+	  ... on ClientField {
+		name
+		fieldFriendlyName
+		friendlyName
+		contentType {
+		  id
+		  name
+		  __typename
+		}
+		__typename
+	  }
+	  ... on GenericField {
+		name
+		friendlyName
+		contentType {
+		  id
+		  name
+		  __typename
+		}
+		__typename
+	  }
+	  ... on ProductLineCustomField {
+		name
+		friendlyName
+		__typename
+	  }
+	  ... on EnrichmentField {
+		name
+		friendlyName
+		__typename
+	  }
+	  ... on BaseSystemFieldInterface {
+		name
+		friendlyName
+		__typename
+	  }
+	  ... on RiskSystemField {
+		name
+		friendlyName
+		__typename
+	  }
+	  __typename
+	}
+	__typename
+  }`;
+
 test.describe('gqlshare.dev', () => {
 	test('should load', async ({ page }) => {
 		await page.goto('/');
@@ -58,6 +131,31 @@ test.describe('gqlshare.dev', () => {
 			await expect(page.url()).toContain(
 				'/?query=I4VwpgTgngBA4mALgJTABwPYGcCWiPQAUAJAHYCGAtmAFwwDKiEOpA5gIQA0MxGA7qUh1GzNuwCUMAN4AoGDAjpseAlEIVqdMlTDd+giFv2RJs+fJwATOTAC+M+0A&vars=N4KABGBEB2CGC2BTSAuKcmQDTigewHdpEAnVfI0yEAXyA'
 			);
+		});
+	});
+
+	test.describe('gqlshare.dev JSON test', () => {
+		test('when pasting a valid JSON input, it should output the correct query & variables', async ({ page }) => {
+			await page.goto('/');
+
+			// Define the input specific to the JSON test
+			const JSON_TEST_INPUT = JSON.stringify({
+				operationName: "GetSuggestions",
+				variables: {
+					orgId: 15,
+					searchPattern: "232f1350ff01 "
+				},
+				query: JSON_TEST_EXPECTED_QUERY
+			});
+
+			// Paste the JSON test input into the textbox
+			await page.getByRole('textbox').fill(JSON_TEST_INPUT);
+
+			// Check if the correct query is displayed
+			await expect(page.getByRole('code').first()).toHaveText(JSON_TEST_EXPECTED_QUERY);
+
+			// Check if the correct variables are displayed
+			await expect(page.getByRole('code').last()).toHaveText(JSON_TEST_EXPECTED_VARIABLES);
 		});
 	});
 });
