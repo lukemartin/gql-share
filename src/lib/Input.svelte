@@ -17,7 +17,7 @@
 				name="query-input"
 				class="resize-none min-h-[300px] sm:min-h-0 bg-transparent px-4 font-mono text-xs outline-none text-slate-300"
 				required
-				placeholder="1. 'Copy > Copy as cURL' from the Network tab of DevTools / Or paste a parsed JSON object here
+				placeholder="1. 'Copy > Copy as cURL' from the Network tab of DevTools, or paste a parsed JSON object here
 
 2. Paste the output here"
 				bind:value={$queryInput}

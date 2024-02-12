@@ -2,68 +2,68 @@ import lzString from 'lz-string';
 const { decompressFromEncodedURIComponent, compressToEncodedURIComponent } = lzString;
 
 const parseQuery = (
-    input: string
+	input: string
 ): {
-    error: boolean;
-    message: string; 
-    query: string;
-    variables: string;
-    operationName: string;
-    queryString: string;
+	error: boolean;
+	message: string;
+	query: string;
+	variables: string;
+	operationName: string;
+	queryString: string;
 } => {
-    let jsonQuery;
-    
-    if (input.trim().startsWith('{')) {
-        jsonQuery = input;
-    } else {
-        const match = input.match(/--data-(binary|raw) \$?'(\{[\s\S]+\})'/);
-        if (match && match[2]) {
-            jsonQuery = match[2];
-        }
-    }
+	let jsonQuery;
 
-    if (!jsonQuery) {
-        return {
-            error: true,
-            message: 'Input is not in a recognized format. Expected JSON or cURL text.',
-            query: '',
-            variables: '',
-            operationName: '',
-            queryString: ''
-        };
-    }
+	if (input.trim().startsWith('{')) {
+		jsonQuery = input;
+	} else {
+		const match = input.match(/--data-(binary|raw) \$?'(\{[\s\S]+\})'/);
+		if (match && match[2]) {
+			jsonQuery = match[2];
+		}
+	}
 
-    const cleanedQuery = jsonQuery.replace(/\\\\"/g, '\"');
+	if (!jsonQuery) {
+		return {
+			error: true,
+			message: 'Input is not in a recognized format. Expected JSON or cURL text.',
+			query: '',
+			variables: '',
+			operationName: '',
+			queryString: ''
+		};
+	}
 
-    try {
-        const parsed = JSON.parse(cleanedQuery);
-        
-        if (typeof parsed.query !== 'string' || typeof parsed.variables !== 'object') {
-            throw new Error('Parsed JSON does not contain valid "query" or "variables" properties.');
-        }
+	const cleanedQuery = jsonQuery.replace(/\\\\"/g, '"');
 
-        const variables = JSON.stringify(parsed.variables, null, 2);
-        const query = parsed.query.replace(/\\n/g, '\n');
-        const queryString = getQueryString({ query, variables });
+	try {
+		const parsed = JSON.parse(cleanedQuery);
 
-        return {
-            ...parsed,
-            error: false,
-            message: '',
-            query,
-            variables,
-            queryString
-        };
-    } catch (e) {
-        return {
-            error: true,
-            message: `Error parsing input: ${e.message}`,
-            query: '',
-            variables: '',
-            operationName: '',
-            queryString: ''
-        };
-    }
+		if (typeof parsed.query !== 'string' || typeof parsed.variables !== 'object') {
+			throw new Error('Parsed JSON does not contain valid "query" or "variables" properties.');
+		}
+
+		const variables = JSON.stringify(parsed.variables, null, 2);
+		const query = parsed.query.replace(/\\n/g, '\n');
+		const queryString = getQueryString({ query, variables });
+
+		return {
+			...parsed,
+			error: false,
+			message: '',
+			query,
+			variables,
+			queryString
+		};
+	} catch (e) {
+		return {
+			error: true,
+			message: `Error parsing input: ${e.message}`,
+			query: '',
+			variables: '',
+			operationName: '',
+			queryString: ''
+		};
+	}
 };
 
 const getQueryString = ({ query, variables }: { query: string; variables: string }): string =>

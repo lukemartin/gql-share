@@ -18,78 +18,38 @@ const SAMPLE_OUTPUT_QUERY = `query GetRepository($name: String!, $owner: String!
 
 const SAMPLE_OUTPUT_VARIABLES = `{\n  "name": "name",\n  "owner": "owner"\n}`;
 
-const JSON_TEST_EXPECTED_VARIABLES = `{
-	"orgId": 15,
-	"searchPattern": "232f1350ff01 "
-  }`;
-
-const JSON_TEST_EXPECTED_QUERY = `query GetSuggestions($orgId: ID!, $searchPattern: String!, $contentTypeIds: [ID!]) {
-	organization(id: $orgId) {
+const COMPLEX_EXPECTED_QUERY = `query GetItem($itemId: ID!, $categoryFilter: String, $reviewRating: Int, $manufacturerLocation: String) {
+	item(id: $itemId) {
 	  id
-	  fieldUniverse {
-		suggestCompletionV2(
-		  searchPattern: $searchPattern
-		  contentTypeIds: $contentTypeIds
-		  limit: 10
-		) {
-		  ...AutoCompleteFragment
-		  __typename
-		}
-		__typename
-	  }
-	  __typename
-	}
-  }
-  
-  fragment AutoCompleteFragment on FieldValueCompletionSuggestion {
-	suggestion
-	field {
-	  key
-	  ... on ClientField {
+	  name
+	  description
+	  categories(filter: $categoryFilter) {
+		id
 		name
-		fieldFriendlyName
-		friendlyName
-		contentType {
+	  }
+	  manufacturer(location: $manufacturerLocation) {
+		id
+		name
+		location
+	  }
+	  reviews(minRating: $reviewRating) {
+		rating
+		text
+		reviewer {
 		  id
 		  name
-		  __typename
 		}
-		__typename
 	  }
-	  ... on GenericField {
-		name
-		friendlyName
-		contentType {
-		  id
-		  name
-		  __typename
-		}
-		__typename
-	  }
-	  ... on ProductLineCustomField {
-		name
-		friendlyName
-		__typename
-	  }
-	  ... on EnrichmentField {
-		name
-		friendlyName
-		__typename
-	  }
-	  ... on BaseSystemFieldInterface {
-		name
-		friendlyName
-		__typename
-	  }
-	  ... on RiskSystemField {
-		name
-		friendlyName
-		__typename
-	  }
-	  __typename
 	}
-	__typename
   }`;
+  
+  const COMPLEX_EXPECTED_VARIABLES = `{
+	"itemId": "42",
+	"categoryFilter": "Electronics",
+	"reviewRating": 4,
+	"manufacturerLocation": "Japan"
+  }`;
+  
 
 test.describe('gqlshare.dev', () => {
 	test('should load', async ({ page }) => {
@@ -134,28 +94,28 @@ test.describe('gqlshare.dev', () => {
 		});
 	});
 
-	test.describe('gqlshare.dev JSON test', () => {
-		test('when pasting a valid JSON input, it should output the correct query & variables', async ({ page }) => {
-			await page.goto('/');
+	test('when pasting a valid JSON input, it should output the correct complex query & variables with filters', async ({ page }) => {
+		await page.goto('/');
 
-			// Define the input specific to the JSON test
-			const JSON_TEST_INPUT = JSON.stringify({
-				operationName: "GetSuggestions",
-				variables: {
-					orgId: 15,
-					searchPattern: "232f1350ff01 "
-				},
-				query: JSON_TEST_EXPECTED_QUERY
-			});
-
-			// Paste the JSON test input into the textbox
-			await page.getByRole('textbox').fill(JSON_TEST_INPUT);
-
-			// Check if the correct query is displayed
-			await expect(page.getByRole('code').first()).toHaveText(JSON_TEST_EXPECTED_QUERY);
-
-			// Check if the correct variables are displayed
-			await expect(page.getByRole('code').last()).toHaveText(JSON_TEST_EXPECTED_VARIABLES);
+		// Define the input for the complex JSON test with filters
+		const JSON_TEST_INPUT = JSON.stringify({
+			operationName: "GetItem",
+			variables: {
+				itemId: 42,
+				categoryFilter: "Electronics",
+				reviewRating: 4,
+				manufacturerLocation: "Japan"
+			},
+			query: COMPLEX_EXPECTED_QUERY
 		});
+
+		// Paste the JSON test input into the textbox
+		await page.getByRole('textbox').fill(JSON_TEST_INPUT);
+
+		// Check if the correct complex query with filters is displayed
+		await expect(page.getByRole('code').first()).toHaveText(COMPLEX_EXPECTED_QUERY);
+
+		// Check if the correct variables with filters are displayed
+		await expect(page.getByRole('code').last()).toHaveText(COMPLEX_EXPECTED_VARIABLES);
 	});
 });
