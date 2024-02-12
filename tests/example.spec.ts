@@ -42,14 +42,13 @@ const COMPLEX_EXPECTED_QUERY = `query GetItem($itemId: ID!, $categoryFilter: Str
 	  }
 	}
   }`;
-  
-  const COMPLEX_EXPECTED_VARIABLES = `{
-	"itemId": "42",
+
+const COMPLEX_EXPECTED_VARIABLES = `{
+	"itemId": 42,
 	"categoryFilter": "Electronics",
 	"reviewRating": 4,
 	"manufacturerLocation": "Japan"
   }`;
-  
 
 test.describe('gqlshare.dev', () => {
 	test('should load', async ({ page }) => {
@@ -94,17 +93,19 @@ test.describe('gqlshare.dev', () => {
 		});
 	});
 
-	test('when pasting a valid JSON input, it should output the correct complex query & variables with filters', async ({ page }) => {
+	test('when pasting a valid JSON input, it should output the correct complex query & variables with filters', async ({
+		page
+	}) => {
 		await page.goto('/');
 
 		// Define the input for the complex JSON test with filters
 		const JSON_TEST_INPUT = JSON.stringify({
-			operationName: "GetItem",
+			operationName: 'GetItem',
 			variables: {
 				itemId: 42,
-				categoryFilter: "Electronics",
+				categoryFilter: 'Electronics',
 				reviewRating: 4,
-				manufacturerLocation: "Japan"
+				manufacturerLocation: 'Japan'
 			},
 			query: COMPLEX_EXPECTED_QUERY
 		});
