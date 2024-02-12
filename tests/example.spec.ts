@@ -98,7 +98,6 @@ test.describe('gqlshare.dev', () => {
 	}) => {
 		await page.goto('/');
 
-		// Define the input for the complex JSON test with filters
 		const JSON_TEST_INPUT = JSON.stringify({
 			operationName: 'GetItem',
 			variables: {
@@ -110,13 +109,8 @@ test.describe('gqlshare.dev', () => {
 			query: COMPLEX_EXPECTED_QUERY
 		});
 
-		// Paste the JSON test input into the textbox
 		await page.getByRole('textbox').fill(JSON_TEST_INPUT);
-
-		// Check if the correct complex query with filters is displayed
 		await expect(page.getByRole('code').first()).toHaveText(COMPLEX_EXPECTED_QUERY);
-
-		// Check if the correct variables with filters are displayed
 		await expect(page.getByRole('code').last()).toHaveText(COMPLEX_EXPECTED_VARIABLES);
 	});
 });
