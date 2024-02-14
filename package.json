@@ -14,7 +14,8 @@
 		"preview": "vite preview --port 6768",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "prettier --plugin-search-dir . --check src",
-		"format": "prettier --plugin-search-dir . --write src"
+		"format": "prettier --plugin-search-dir . --write src",
+		"test": "playwright test"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.41.2",

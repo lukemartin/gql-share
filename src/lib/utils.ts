@@ -5,38 +5,65 @@ const parseQuery = (
 	input: string
 ): {
 	error: boolean;
+	message: string;
 	query: string;
 	variables: string;
 	operationName: string;
 	queryString: string;
 } => {
-	const match = input.match(/--data-(binary|raw) \$?'(\{[\s\S]+\})'/);
+	let jsonQuery;
 
-	if (!match || !match[2])
+	if (input.trim().startsWith('{')) {
+		jsonQuery = input;
+	} else {
+		const match = input.match(/--data-(binary|raw) \$?'(\{[\s\S]+\})'/);
+		if (match && match[2]) {
+			jsonQuery = match[2];
+		}
+	}
+
+	if (!jsonQuery) {
 		return {
 			error: true,
+			message: 'Input is not in a recognized format. Expected JSON or cURL text.',
 			query: '',
 			variables: '',
 			operationName: '',
 			queryString: ''
 		};
+	}
 
-	const jsonQuery = match[2];
+	const cleanedQuery = jsonQuery.replace(/\\\\"/g, '"');
 
-	const cleanedQuery = jsonQuery.replace(/\\\\"/g, '\\"');
+	try {
+		const parsed = JSON.parse(cleanedQuery);
 
-	const parsed = JSON.parse(cleanedQuery);
-	const variables = JSON.stringify(parsed.variables, null, 2);
-	const query = parsed.query.replace(/\\n/g, '\n');
-	const queryString = getQueryString({ query, variables });
+		if (typeof parsed.query !== 'string' || typeof parsed.variables !== 'object') {
+			throw new Error('Parsed JSON does not contain valid "query" or "variables" properties.');
+		}
 
-	return {
-		...parsed,
-		error: false,
-		query,
-		variables,
-		queryString
-	};
+		const variables = JSON.stringify(parsed.variables, null, 2);
+		const query = parsed.query.replace(/\\n/g, '\n');
+		const queryString = getQueryString({ query, variables });
+
+		return {
+			...parsed,
+			error: false,
+			message: '',
+			query,
+			variables,
+			queryString
+		};
+	} catch (e) {
+		return {
+			error: true,
+			message: `Error parsing input: ${e.message}`,
+			query: '',
+			variables: '',
+			operationName: '',
+			queryString: ''
+		};
+	}
 };
 
 const getQueryString = ({ query, variables }: { query: string; variables: string }): string =>

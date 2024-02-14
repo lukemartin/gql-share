@@ -18,6 +18,38 @@ const SAMPLE_OUTPUT_QUERY = `query GetRepository($name: String!, $owner: String!
 
 const SAMPLE_OUTPUT_VARIABLES = `{\n  "name": "name",\n  "owner": "owner"\n}`;
 
+const COMPLEX_EXPECTED_QUERY = `query GetItem($itemId: ID!, $categoryFilter: String, $reviewRating: Int, $manufacturerLocation: String) {
+	item(id: $itemId) {
+	  id
+	  name
+	  description
+	  categories(filter: $categoryFilter) {
+		id
+		name
+	  }
+	  manufacturer(location: $manufacturerLocation) {
+		id
+		name
+		location
+	  }
+	  reviews(minRating: $reviewRating) {
+		rating
+		text
+		reviewer {
+		  id
+		  name
+		}
+	  }
+	}
+  }`;
+
+const COMPLEX_EXPECTED_VARIABLES = `{
+	"itemId": 42,
+	"categoryFilter": "Electronics",
+	"reviewRating": 4,
+	"manufacturerLocation": "Japan"
+  }`;
+
 test.describe('gqlshare.dev', () => {
 	test('should load', async ({ page }) => {
 		await page.goto('/');
@@ -59,5 +91,26 @@ test.describe('gqlshare.dev', () => {
 				'/?query=I4VwpgTgngBA4mALgJTABwPYGcCWiPQAUAJAHYCGAtmAFwwDKiEOpA5gIQA0MxGA7qUh1GzNuwCUMAN4AoGDAjpseAlEIVqdMlTDd+giFv2RJs+fJwATOTAC+M+0A&vars=N4KABGBEB2CGC2BTSAuKcmQDTigewHdpEAnVfI0yEAXyA'
 			);
 		});
+	});
+
+	test('when pasting a valid JSON input, it should output the correct complex query & variables with filters', async ({
+		page
+	}) => {
+		await page.goto('/');
+
+		const JSON_TEST_INPUT = JSON.stringify({
+			operationName: 'GetItem',
+			variables: {
+				itemId: 42,
+				categoryFilter: 'Electronics',
+				reviewRating: 4,
+				manufacturerLocation: 'Japan'
+			},
+			query: COMPLEX_EXPECTED_QUERY
+		});
+
+		await page.getByRole('textbox').fill(JSON_TEST_INPUT);
+		await expect(page.getByRole('code').first()).toHaveText(COMPLEX_EXPECTED_QUERY);
+		await expect(page.getByRole('code').last()).toHaveText(COMPLEX_EXPECTED_VARIABLES);
 	});
 });
