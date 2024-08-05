@@ -21,7 +21,7 @@
 		"@playwright/test": "^1.44.1",
 		"@sveltejs/vite-plugin-svelte": "^2.5.3",
 		"@tsconfig/svelte": "^4.0.1",
-		"autoprefixer": "^10.4.19",
+		"autoprefixer": "^10.4.20",
 		"postcss": "^8.4.40",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
