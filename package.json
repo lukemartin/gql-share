@@ -8,6 +8,7 @@
 		"url": "https://luke.dev"
 	},
 	"type": "module",
+	"packageManager": "yarn@1.22.22",
 	"scripts": {
 		"dev": "vite --port 6767",
 		"build": "vite build",
